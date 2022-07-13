@@ -1,1 +1,56 @@
-hi!
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script language="javascript">
+        function maketeams() {
+ const boys=$("#boys").val().split(",").sort((a, b) => 0.5 - Math.random());
+ const girls=$("#girls").val().split(",").sort((a, b) => 0.5 - Math.random());
+ const teams = parseInt($("#teams").val());
+ //alert("Making " + teams + " random teams with " + boys.length + " boys and " + girls.length + " girls\n\n" + "boys: " + boys.join() + "\n\n" + "girls: " + girls.join());
+ 
+ 
+  let output = {};
+  for(let i = 1;i<=teams;i++) {
+    output[i] = [];
+  }
+  for(let i = 0; i < girls.length; i++) {
+    let bucket = i%teams + 1;
+    output[bucket].push(girls[i]);
+  }
+  for(let i = 0; i < boys.length; i++) {
+    let bucket = i%teams + 1;
+    output[bucket].push(boys[i]);
+  }
+
+  $("#teamOutput").text("");
+  for(let i = 1;i<=teams;i++) {
+    $("#teamOutput").append("Team " + i + ": " + JSON.stringify(output[i].join(", ")) + "<Br>");
+  }
+//  $("#teamOutput").text(JSON.stringify(output, null, 2))
+  //alert(JSON.stringify(output, null, 2));
+}
+
+
+    </script>    
+    </head>
+    <body>
+        Boys
+        <input style="width: 400px" type="text" id="boys" value="B1,B2,B3,B4,B5,B6,B7,B8,B9,B10"/>
+        <br/>
+        Girls
+        <input style="width: 400px" type="text" id="girls" value="G1,G2,G3,G4,G5,G6"/>
+        <br/>
+        Teams
+        <select name="teams" id="teams">
+        <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4" selected=true>4</option>
+        </select>
+        <Br/>
+        <Br>
+        <button onclick="maketeams()">Make Teams</button>
+        <Br>
+        <div id="teamOutput"/>
+      </body>   
+    </html>
